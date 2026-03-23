@@ -152,7 +152,6 @@ export default function MyTrips() {
                           🗺️ View
                         </button>
                       )}
-                      </button>
                       <button
                         onClick={() => deleteTrip(trip.id)}
                         disabled={deleting === trip.id}
