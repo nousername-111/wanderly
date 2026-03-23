@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../App';
 import { destinations } from '../data/destinations';
 
@@ -18,6 +18,17 @@ const stats = [
 
 export default function Home() {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleDestinationClick = (dest) => {
+    // Pre-fill the trip builder with this destination
+    sessionStorage.setItem('wanderly_prefill', JSON.stringify({
+      destination: dest.name,
+      interest: dest.type.map(t => t.toLowerCase())[0],
+      budget: dest.minBudget,
+    }));
+    navigate(user ? '/plan' : '/auth');
+  };
 
   return (
     <div className="bg-mesh min-h-screen">
@@ -107,7 +118,11 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {destinations.map((dest, i) => (
-              <div key={dest.id} className={`group relative overflow-hidden rounded-2xl cursor-pointer animate-in stagger-${(i % 4) + 1}`}>
+              <div
+                key={dest.id}
+                onClick={() => handleDestinationClick(dest)}
+                className={`group relative overflow-hidden rounded-2xl cursor-pointer animate-in stagger-${(i % 4) + 1}`}
+              >
                 <div className="relative h-56 bg-dark-700 overflow-hidden">
                   <img
                     src={dest.image}

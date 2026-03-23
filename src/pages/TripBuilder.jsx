@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../App';
 import { interests } from '../data/destinations';
@@ -16,6 +16,21 @@ export default function TripBuilder() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Load prefill data from destination card click
+  useEffect(() => {
+    const prefill = sessionStorage.getItem('wanderly_prefill');
+    if (prefill) {
+      const data = JSON.parse(prefill);
+      setForm(f => ({
+        ...f,
+        destination: data.destination || '',
+        interest: data.interest ? [data.interest] : [],
+        budget: data.budget ? String(data.budget) : '',
+      }));
+      sessionStorage.removeItem('wanderly_prefill');
+    }
+  }, []);
 
   const set = (key, val) => setForm(f => ({ ...f, [key]: val }));
 
