@@ -1,15 +1,31 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../App';
 import { supabase } from '../supabaseClient';
 
 export default function MyTrips() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(null);
   const [expanded, setExpanded] = useState(null);
   const [toast, setToast] = useState(null);
+
+  const viewTrip = (trip) => {
+    if (trip.plan) {
+      sessionStorage.setItem('wanderly_plan', JSON.stringify(trip.plan));
+      sessionStorage.setItem('wanderly_form', JSON.stringify({
+        budget: trip.budget,
+        duration: trip.duration,
+        interest: trip.interest,
+        travelers: '1',
+        from: '',
+        destination: trip.destination,
+      }));
+      navigate('/recommendation');
+    }
+  };
 
   const showToast = (msg, type = 'success') => {
     setToast({ msg, type });
@@ -51,7 +67,7 @@ export default function MyTrips() {
   };
 
   return (
-    <div className="bg-mesh min-h-screen page-wrapper px-4 pt-28 pb-16">
+    <div className="bg-mesh min-h-screen page-wrapper px-4 py-10">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-end justify-between mb-10 animate-in">
@@ -102,7 +118,15 @@ export default function MyTrips() {
                         <h3 className="font-display text-xl font-bold text-white truncate">{trip.destination}</h3>
                         <p className="text-white/50 text-sm">{trip.country}</p>
                         <div className="flex flex-wrap gap-2 mt-2">
-                          <span className="tag-pill capitalize">{trip.interest}</span>
+                          {/* Fix interest display - handle array or string */}
+                          {(Array.isArray(trip.interest)
+                            ? trip.interest
+                            : typeof trip.interest === 'string' && trip.interest.startsWith('[')
+                              ? JSON.parse(trip.interest)
+                              : [trip.interest]
+                          ).map((i, idx) => (
+                            <span key={idx} className="tag-pill capitalize">{i}</span>
+                          ))}
                           <span className="tag-pill">{trip.duration} days</span>
                           <span className="tag-pill">${Number(trip.budget).toLocaleString()} budget</span>
                         </div>
@@ -119,6 +143,15 @@ export default function MyTrips() {
                         className="glass hover:bg-white/10 text-white/60 hover:text-white px-3 py-2 rounded-lg text-xs transition-all"
                       >
                         {isOpen ? '▲ Less' : '▼ More'}
+                      </button>
+                      {trip.plan && (
+                        <button
+                          onClick={() => viewTrip(trip)}
+                          className="glass hover:bg-orange-500/20 text-orange-400 hover:text-orange-300 px-3 py-2 rounded-lg text-xs transition-all font-medium"
+                        >
+                          🗺️ View
+                        </button>
+                      )}
                       </button>
                       <button
                         onClick={() => deleteTrip(trip.id)}
