@@ -29,7 +29,7 @@ export default function TripBuilder() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/ai/recommend', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/ai/recommend`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, interest: form.interest.join(', '), destination: form.destination || '', userId: user?.id }),
