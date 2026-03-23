@@ -9,11 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'https://wanderly-git-main-vivek-rawats-projects-1044c2bb.vercel.app',
-    'https://wanderly-3yr4zgi6i-vivek-rawats-projects-1044c2bb.vercel.app',
+  origin: '*',
   ],
   credentials: true
 }));
