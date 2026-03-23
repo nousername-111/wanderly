@@ -96,30 +96,18 @@ export default function TripBuilder() {
                 className="input-style pl-8"
               />
             </div>
-            {form.budget && (
-              <div className="flex gap-2 mt-2 flex-wrap">
-                {['500', '1000', '2000', '5000'].map(b => (
-                  <button
-                    key={b}
-                    type="button"
-                    onClick={() => set('budget', b)}
-                    className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
-                      form.budget === b ? 'bg-orange-500 text-white' : 'glass text-white/50 hover:text-white'
-                    }`}
-                  >${b}</button>
-                ))}
-              </div>
-            )}
-            {!form.budget && (
-              <div className="flex gap-2 mt-2 flex-wrap">
-                {['500', '1000', '2000', '5000'].map(b => (
-                  <button key={b} type="button" onClick={() => set('budget', b)}
-                    className="text-xs px-3 py-1.5 rounded-lg glass text-white/50 hover:text-white transition-all">
-                    ${b}
-                  </button>
-                ))}
-              </div>
-            )}
+            <div className="flex gap-2 mt-3 flex-wrap">
+              {['500', '1000', '2000', '5000'].map(b => (
+                <button
+                  key={b}
+                  type="button"
+                  onClick={() => set('budget', b)}
+                  className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
+                    form.budget === b ? 'bg-orange-500 text-white' : 'glass text-white/50 hover:text-white'
+                  }`}
+                >${b}</button>
+              ))}
+            </div>
           </div>
 
           {/* Interest */}
