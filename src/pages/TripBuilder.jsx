@@ -49,7 +49,7 @@ export default function TripBuilder() {
   };
 
   return (
-    <div className="bg-mesh min-h-screen page-wrapper px-4 pt-28 pb-16">
+    <div className="bg-mesh min-h-screen page-wrapper px-4 py-10">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 animate-in">
