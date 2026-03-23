@@ -64,7 +64,7 @@ export default function TripBuilder() {
   };
 
   return (
-    <div className="bg-mesh min-h-screen page-wrapper px-4 py-10">
+    <div className="bg-mesh min-h-screen page-wrapper px-4 pt-28 pb-16">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 animate-in">
@@ -93,7 +93,7 @@ export default function TripBuilder() {
                 placeholder="e.g. 2000"
                 value={form.budget}
                 onChange={e => set('budget', e.target.value)}
-                className="input-style pl-8"
+                className="input-style pl-7"
               />
             </div>
             <div className="flex gap-2 mt-3 flex-wrap">

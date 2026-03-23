@@ -67,7 +67,7 @@ export default function MyTrips() {
   };
 
   return (
-    <div className="bg-mesh min-h-screen page-wrapper px-4 py-10">
+    <div className="bg-mesh min-h-screen page-wrapper px-4 pt-28 pb-16">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-end justify-between mb-10 animate-in">
