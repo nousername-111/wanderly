@@ -69,32 +69,55 @@ export default function Recommendation() {
         <div className="card border-orange-500/20 mb-8 relative overflow-hidden animate-in">
           <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent pointer-events-none" />
 
-          {/* Destination Photo */}
-          <div className="relative w-full h-56 md:h-72 rounded-xl overflow-hidden mb-6 bg-dark-700">
-            <img
-              src={`https://source.unsplash.com/1200x600/?${encodeURIComponent(plan.destination + ' ' + plan.country + ' travel landscape')}`}
-              alt={plan.destination}
-              className="w-full h-full object-cover"
-              onError={e => {
-                e.target.src = `https://source.unsplash.com/1200x600/?${encodeURIComponent(plan.destination + ' travel')}`;
-              }}
-            />
-            {/* Gradient overlay on photo */}
-            <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent" />
-            {/* Destination name on photo */}
-            <div className="absolute bottom-4 left-4">
-              <h1 className="font-display text-4xl md:text-5xl font-bold text-white drop-shadow-lg">{plan.destination}</h1>
-              <p className="text-white/80 text-lg drop-shadow">{plan.country}</p>
+          {/* 3-Photo Destination Gallery */}
+          <div className="grid grid-cols-4 gap-2 rounded-xl overflow-hidden mb-6 h-64 md:h-80">
+            {/* LEFT photo - tall */}
+            <div className="col-span-1 relative overflow-hidden rounded-l-xl bg-dark-700">
+              <img
+                src={`https://loremflickr.com/400/600/${encodeURIComponent(plan.destination)},${encodeURIComponent(plan.country)},travel?lock=1`}
+                alt={`${plan.destination} 1`}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                onError={e => { e.target.src = `https://loremflickr.com/400/600/travel,city?lock=11`; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-dark-900/30" />
             </div>
-            {/* AI badge on photo */}
-            <div className="absolute top-4 left-4">
-              <span className="tag-pill backdrop-blur-sm">✈️ AI Recommendation</span>
+
+            {/* CENTER photo - main hero */}
+            <div className="col-span-2 relative overflow-hidden bg-dark-700">
+              <img
+                src={`https://loremflickr.com/800/600/${encodeURIComponent(plan.destination)},landmark,${encodeURIComponent(plan.country)}?lock=2`}
+                alt={plan.destination}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                onError={e => { e.target.src = `https://loremflickr.com/800/600/travel,landmark?lock=22`; }}
+              />
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-dark-900/85 via-dark-900/10 to-transparent" />
+              {/* Destination name */}
+              <div className="absolute bottom-4 left-4 right-4">
+                <h1 className="font-display text-3xl md:text-5xl font-bold text-white drop-shadow-lg">{plan.destination}</h1>
+                <p className="text-white/80 text-base drop-shadow">{plan.country}</p>
+              </div>
+              {/* AI badge */}
+              <div className="absolute top-3 left-3">
+                <span className="tag-pill backdrop-blur-sm text-xs">✈️ AI Recommendation</span>
+              </div>
             </div>
-            {/* Estimated total on photo */}
-            <div className="absolute top-4 right-4 text-right glass rounded-xl px-3 py-2">
-              <div className="text-white/60 text-xs">Estimated Total</div>
-              <div className="font-display text-2xl font-bold text-orange-400">${plan.estimatedTotal?.toLocaleString()}</div>
-              {form && <div className="text-white/40 text-xs">{form.travelers} traveler(s), {form.duration} days</div>}
+
+            {/* RIGHT photo - tall */}
+            <div className="col-span-1 relative overflow-hidden rounded-r-xl bg-dark-700">
+              <img
+                src={`https://loremflickr.com/400/600/${encodeURIComponent(plan.destination)},nature,${encodeURIComponent(plan.country)}?lock=3`}
+                alt={`${plan.destination} 3`}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                onError={e => { e.target.src = `https://loremflickr.com/400/600/travel,nature?lock=33`; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-l from-transparent to-dark-900/30" />
+              {/* Estimated total */}
+              <div className="absolute bottom-3 left-2 right-2 glass rounded-xl px-2 py-2 text-center">
+                <div className="text-white/50 text-xs">Est. Total</div>
+                <div className="font-display text-lg font-bold text-orange-400">${plan.estimatedTotal?.toLocaleString()}</div>
+                {form && <div className="text-white/40 text-xs">{form.travelers} pax · {form.duration}d</div>}
+              </div>
             </div>
           </div>
 
