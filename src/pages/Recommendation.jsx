@@ -68,22 +68,38 @@ export default function Recommendation() {
         {/* Hero Card */}
         <div className="card border-orange-500/20 mb-8 relative overflow-hidden animate-in">
           <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent pointer-events-none" />
-          <div className="relative">
-            <div className="flex items-start justify-between flex-wrap gap-4 mb-4">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="tag-pill">✈️ AI Recommendation</span>
-                </div>
-                <h1 className="font-display text-3xl md:text-4xl font-bold text-white">{plan.destination}</h1>
-                <p className="text-white/50 text-lg">{plan.country}</p>
-              </div>
-              <div className="text-right">
-                <div className="text-white/40 text-xs mb-1">Estimated Total</div>
-                <div className="font-display text-3xl font-bold text-orange-400">${plan.estimatedTotal?.toLocaleString()}</div>
-                {form && <div className="text-white/30 text-xs mt-1">for {form.travelers} traveler(s), {form.duration} days</div>}
-              </div>
-            </div>
 
+          {/* Destination Photo */}
+          <div className="relative w-full h-56 md:h-72 rounded-xl overflow-hidden mb-6 bg-dark-700">
+            <img
+              src={`https://source.unsplash.com/1200x600/?${encodeURIComponent(plan.destination + ' ' + plan.country + ' travel landscape')}`}
+              alt={plan.destination}
+              className="w-full h-full object-cover"
+              onError={e => {
+                e.target.src = `https://source.unsplash.com/1200x600/?${encodeURIComponent(plan.destination + ' travel')}`;
+              }}
+            />
+            {/* Gradient overlay on photo */}
+            <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent" />
+            {/* Destination name on photo */}
+            <div className="absolute bottom-4 left-4">
+              <h1 className="font-display text-4xl md:text-5xl font-bold text-white drop-shadow-lg">{plan.destination}</h1>
+              <p className="text-white/80 text-lg drop-shadow">{plan.country}</p>
+            </div>
+            {/* AI badge on photo */}
+            <div className="absolute top-4 left-4">
+              <span className="tag-pill backdrop-blur-sm">✈️ AI Recommendation</span>
+            </div>
+            {/* Estimated total on photo */}
+            <div className="absolute top-4 right-4 text-right glass rounded-xl px-3 py-2">
+              <div className="text-white/60 text-xs">Estimated Total</div>
+              <div className="font-display text-2xl font-bold text-orange-400">${plan.estimatedTotal?.toLocaleString()}</div>
+              {form && <div className="text-white/40 text-xs">{form.travelers} traveler(s), {form.duration} days</div>}
+            </div>
+          </div>
+
+          {/* Tagline and action buttons */}
+          <div className="relative">
             {plan.tagline && (
               <p className="text-white/60 italic font-display text-lg mb-6">"{plan.tagline}"</p>
             )}
