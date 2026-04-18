@@ -64,7 +64,7 @@ export default function TripBuilder() {
   };
 
   return (
-    <div className="bg-mesh min-h-screen page-wrapper px-4 pt-28 pb-16">
+    <div className="bg-mesh min-h-screen page-wrapper px-4 py-10">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 animate-in">
@@ -84,16 +84,16 @@ export default function TripBuilder() {
               💰 Total Budget (USD)
             </label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 font-semibold">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm">$</span>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 required
-                min="100"
-                max="100000"
                 placeholder="e.g. 2000"
                 value={form.budget}
-                onChange={e => set('budget', e.target.value)}
-                className="input-style pl-7"
+                onChange={e => set('budget', e.target.value.replace(/[^0-9]/g, ''))}
+                className="input-style pl-6"
               />
             </div>
             <div className="flex gap-2 mt-3 flex-wrap">
