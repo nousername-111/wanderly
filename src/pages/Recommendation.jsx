@@ -62,9 +62,48 @@ export default function Recommendation() {
 
   const budgetColors = ['bg-orange-500', 'bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-pink-500'];
 
+  const photoBase = `https://loremflickr.com/400/900/${encodeURIComponent(plan.destination)},${encodeURIComponent(plan.country)}`;
+
   return (
-    <div className="bg-mesh min-h-screen page-wrapper px-4 pt-28 pb-16">
-      <div className="max-w-4xl mx-auto">
+    <div className="bg-mesh min-h-screen page-wrapper px-4 pt-28 pb-16 relative">
+
+      {/* LEFT side photo panel */}
+      <div className="fixed left-0 top-0 bottom-0 w-[13vw] overflow-hidden z-0 hidden xl:block">
+        <img
+          src={`${photoBase},travel?lock=10`}
+          alt={plan.destination}
+          className="w-full h-full object-cover"
+          onError={e => { e.target.src = 'https://loremflickr.com/400/900/travel?lock=10'; }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-dark-900/30 via-transparent to-dark-900/90" />
+        {/* Vertical destination text */}
+        <div className="absolute bottom-32 left-0 right-0 flex justify-center">
+          <span className="font-display text-white/20 text-lg font-bold tracking-widest"
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>
+            {plan.destination} · {plan.country}
+          </span>
+        </div>
+      </div>
+
+      {/* RIGHT side photo panel */}
+      <div className="fixed right-0 top-0 bottom-0 w-[13vw] overflow-hidden z-0 hidden xl:block">
+        <img
+          src={`${photoBase},nature?lock=20`}
+          alt={plan.destination}
+          className="w-full h-full object-cover"
+          onError={e => { e.target.src = 'https://loremflickr.com/400/900/nature,travel?lock=20'; }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-dark-900/30 via-transparent to-dark-900/90" />
+        {/* Vertical stars/rating */}
+        <div className="absolute bottom-32 left-0 right-0 flex justify-center">
+          <span className="font-display text-white/20 text-lg font-bold tracking-widest"
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
+            ✈ Wanderly AI
+          </span>
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Hero Card */}
         <div className="card border-orange-500/20 mb-8 relative overflow-hidden animate-in">
           <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent pointer-events-none" />
